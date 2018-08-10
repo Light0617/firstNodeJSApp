@@ -2,39 +2,39 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const Promotions = require('../models/promotions');
+const Feedbacks = require('../models/feedbacks');
 
-const promoRouter = express.Router();
+const feedbackRouter = express.Router();
 
-promoRouter.use(bodyParser.json());
+feedbackRouter.use(bodyParser.json());
 
 
-promoRouter.route('/')
+feedbackRouter.route('/')
 .get((req,res,next) => {
-    Promotions.find({})
-    .then((promos) => {
+    Feedbacks.find({})
+    .then((feedbacks) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(promos);
+        res.json(feedbacks);
     }, (err) => next(err))
     .catch((err) => next(err));
 })
 .post((req, res, next) => {
-    Promotions.create(req.body)
-    .then((promo) => {
-        console.log('Promotion Created ', promo);
+    Feedbacks.create(req.body)
+    .then((feedback) => {
+        console.log('Feedback Created ', feedback);
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(promo);
+        res.json(feedback);
     }, (err) => next(err))
     .catch((err) => next(err));
 })
 .put((req, res, next) => {
     res.statusCode = 403;
-    res.end('PUT operation not supported on /promotions');
+    res.end('PUT operation not supported on /feedbacks');
 })
 .delete((req, res, next) => {
-    Promotions.remove({})
+    Feedbacks.remove({})
     .then((resp) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -43,33 +43,33 @@ promoRouter.route('/')
     .catch((err) => next(err));
 });
 
-promoRouter.route('/:promoId')
+feedbackRouter.route('/:promoId')
 .get((req,res,next) => {
-    Promotions.findById(req.params.promoId)
-    .then((promo) => {
+    Feedbacks.findById(req.params.feedbackId)
+    .then((feedback) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(promo);
+        res.json(feedback);
     }, (err) => next(err))
     .catch((err) => next(err));
 })
 .post((req, res, next) => {
     res.statusCode = 403;
-    res.end('POST operation not supported on /promotions/'+ req.params.promoId);
+    res.end('POST operation not supported on /feedbacks/'+ req.params.feedbackId);
 })
 .put((req, res, next) => {
-    Promotions.findByIdAndUpdate(req.params.promoId, {
+    Feedbacks.findByIdAndUpdate(req.params.feedbackId, {
         $set: req.body
     }, { new: true })
-    .then((promo) => {
+    .then((feedback) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(promo);
+        res.json(feedback);
     }, (err) => next(err))
     .catch((err) => next(err));
 })
 .delete((req, res, next) => {
-    Promotions.findByIdAndRemove(req.params.promoId)
+    Feedbacks.findByIdAndRemove(req.params.feedbackId)
     .then((resp) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -78,4 +78,4 @@ promoRouter.route('/:promoId')
     .catch((err) => next(err));
 });
 
-module.exports =  promoRouter;
+module.exports =  feedbackRouter;
