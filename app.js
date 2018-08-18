@@ -48,28 +48,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(passport.initialize());
-app.use(passport.session());
-
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-function auth (req, res, next) {
-    console.log(req.user);
-    if (!req.user) {
-      var err = new Error('You are not authenticated!');
-      res.setHeader('WWW-Authenticate', 'Basic');
-      err.status = 401;
-      next(err);
-    }
-    else {
-          next();
-    }
-}
-
-
-
-app.use(auth);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -78,7 +59,6 @@ app.use('/promotions',promoRouter);
 app.use('/leaders',leaderRouter);
 app.use('/feedbacks',feedbackRouter);
 app.use('/imageUpload',uploadRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
