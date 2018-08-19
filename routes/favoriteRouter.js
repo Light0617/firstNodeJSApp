@@ -59,23 +59,11 @@ favoriteRouter.route('/')
     res.end('PUT operation not supported on /favorites/');
 })
 .delete(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
-  Favorites.findOne({user : req.user})
-    .then((favorite) => {
-      if (favorite != null) {
-          for (var i = (favorite.dishes.length - 1); i >= 0; i--) {
-              favorite.dishes.remove(favorite.dishes[i]._id);
-          }
-          favorite.save()
-              .then((favorite) => {
-                  res.statusCode = 200
-                  res.setHeader('Content-Type', 'application/json')
-                  res.json(favorite)
-              }, (err) => next(err))
-      } else {
-          err = new Error('favorite is not found')
-          err.status = 404
-          return next(err)
-      }
+  Favorites.findOneAndRemove({ user: req.user })
+    .then((resp) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(resp);
     }, (err) => next(err))
     .catch((err) => next(err));
 });
