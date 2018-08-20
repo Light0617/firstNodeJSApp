@@ -324,7 +324,7 @@
       "image": "images/Erlich.png",
       "designation": "Chief Food Officer",
       "abbr": "CFO",
-      "featured": "false",
+      "featured": "true",
       "description": "Erlich administers the Hacker Hostel, a tech incubator where Richard, Big Head, Dinesh, and Gilfoyle live and work in exchange for 10 percent of their potential businesses."
     },
     {
@@ -342,7 +342,7 @@
       "image": "images/Richard.png",
       "designation": "Executive Chef",
       "abbr": "EC",
-      "featured": "true",
+      "featured": "false",
       "description": "Richard invented and built the start-up Pied Piper, a program designed to find music matches, while living at Erlich’s Hacker Hostel alongside his best friend Big Head and fellow geeks Dinesh and Gilfoyle."
     }
   ],
